@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="pokemons")
-public class Pokemon {
+public class EntityPokemon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,6 @@ public class Pokemon {
 
     @Column(name = "type_2")
     private String type2;
-
     private String name;
     private String description;
     private Double weight;
