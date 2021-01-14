@@ -1,10 +1,57 @@
 package com.acepokedex.pokedex.web.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.acepokedex.pokedex.domain.Pokemon;
+import com.acepokedex.pokedex.domain.service.PokemonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/pokemon")
 public class PokemonController {
+
+@Autowired
+    private PokemonService pokemonService;
+
+    @RequestMapping("/all")
+    public ResponseEntity<List<Pokemon>> getAll(){
+        return new ResponseEntity<>(pokemonService.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/SearchById/{id}")
+    public ResponseEntity<Pokemon>getPokemonById(@PathVariable("id") int id)
+    {
+        return  pokemonService.getPokemonById(id)
+                .map(pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    @GetMapping("/SearchByName/{name}")
+    public ResponseEntity<Pokemon>getPokemonByName(@PathVariable("name") String name){
+        return pokemonService.getPokemonByName(name)
+                .map((pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK)))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    @PostMapping("/save")
+    public ResponseEntity<Pokemon> save(@RequestBody Pokemon pokemon){
+        return new ResponseEntity<>(pokemonService.save(pokemon),HttpStatus.ACCEPTED);
+    }
+
+
+    //Checar response entity del false
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable("id") int id){
+        if(pokemonService.delete(id)){
+            return  new ResponseEntity(HttpStatus.OK);
+        }else{
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+
 
 }
