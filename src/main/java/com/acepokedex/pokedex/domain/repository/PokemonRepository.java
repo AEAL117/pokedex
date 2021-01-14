@@ -7,8 +7,9 @@ import java.util.Optional;
 
 public interface PokemonRepository {
     public List<Pokemon> getAll();
-    Optional<List<Pokemon>> getById(int idPokemon);
-    Optional<Pokemon>getPokemon(String name);
+  //  Optional<List<Pokemon>> getById(int idPokemon);
+    Optional<Pokemon>getPokemonByName(String name);
+    Optional<Pokemon>getPokemonById(int id);
     Pokemon save(Pokemon pokemon);
     void delete(int idPokemon);
 }

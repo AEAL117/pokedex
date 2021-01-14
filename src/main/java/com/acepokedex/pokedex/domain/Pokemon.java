@@ -2,14 +2,14 @@ package com.acepokedex.pokedex.domain;
 
 public class Pokemon {
     private int id;
+    private String type1;
+    private String type2;
     private String name;
-    private String type;
-    //private String Type2;
     private String description;
-    private double weitg;
-    private double heigth;
-    private String evolves;
-    private String megaEnvolves;
+    private double weight;
+    private int height;
+    private boolean megaEvolves;
+    private int evolves;
 
     public int getId() {
         return id;
@@ -17,6 +17,22 @@ public class Pokemon {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getType1() {
+        return type1;
+    }
+
+    public void setType1(String type1) {
+        this.type1 = type1;
+    }
+
+    public String getType2() {
+        return type2;
+    }
+
+    public void setType2(String type2) {
+        this.type2 = type2;
     }
 
     public String getName() {
@@ -27,22 +43,6 @@ public class Pokemon {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-   /* public String getType2() {
-        return Type2;
-    }
-
-    public void setType2(String type2) {
-        Type2 = type2;
-    }*/
-
     public String getDescription() {
         return description;
     }
@@ -51,35 +51,35 @@ public class Pokemon {
         this.description = description;
     }
 
-    public double getWeitg() {
-        return weitg;
+    public double getWeight() {
+        return weight;
     }
 
-    public void setWeitg(double weitg) {
-        this.weitg = weitg;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
-    public double getHeigth() {
-        return heigth;
+    public int getHeight() {
+        return height;
     }
 
-    public void setHeigth(double heigth) {
-        this.heigth = heigth;
+    public void setHeight(int height) {
+        this.height = height;
     }
 
-    public String getEvolves() {
+    public boolean isMegaEvolves() {
+        return megaEvolves;
+    }
+
+    public void setMegaEvolves(boolean megaEvolves) {
+        this.megaEvolves = megaEvolves;
+    }
+
+    public int getEvolves() {
         return evolves;
     }
 
-    public void setEvolves(String evolves) {
+    public void setEvolves(int evolves) {
         this.evolves = evolves;
-    }
-
-    public String getMegaEnvolves() {
-        return megaEnvolves;
-    }
-
-    public void setMegaEnvolves(String megaEnvolves) {
-        this.megaEnvolves = megaEnvolves;
     }
 }
