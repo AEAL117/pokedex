@@ -34,9 +34,9 @@ public class PokemonRepositoryPersistence implements PokemonRepository {
     }
 
     @Override
-    public Optional<Pokemon> getPokemonById(int id) {
+    public Optional<Pokemon> getPokemonById(int idPokemon) {
         return pokemonCrudRepository
-                .findPokemonById(id).map(pokemon -> pokemonMapper.toPokemon((EntityPokemon) pokemon));
+                .findPokemonByidPokemon(idPokemon).map(pokemon -> pokemonMapper.toPokemon((EntityPokemon) pokemon));
     }
 
     @Override
