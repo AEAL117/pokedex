@@ -30,13 +30,13 @@ public class PokemonRepositoryPersistence implements PokemonRepository {
         return pokemonCrudRepository
                 .findPokemonByName(name)
                 .map(entityPokemons -> pokemonMapper
-                        .toPokemon((EntityPokemon) entityPokemons));
+                        .toPokemon( entityPokemons));
     }
 
     @Override
     public Optional<Pokemon> getPokemonById(int idPokemon) {
         return pokemonCrudRepository
-                .findPokemonByidPokemon(idPokemon).map(pokemon -> pokemonMapper.toPokemon((EntityPokemon) pokemon));
+                .findPokemonByIdPokemon(idPokemon).map(pokemon -> pokemonMapper.toPokemon(pokemon));
     }
 
     @Override
