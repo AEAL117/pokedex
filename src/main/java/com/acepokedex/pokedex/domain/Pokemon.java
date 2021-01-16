@@ -1,5 +1,9 @@
 package com.acepokedex.pokedex.domain;
 
+/**
+ * @Title Create Class of the Pokemon
+ * Here have all attributes and methods of the pokemon
+ */
 public class Pokemon {
     private int id;
     private String type1;

@@ -9,6 +9,11 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
+/**
+ * @Title Make to Mapper
+ * In this part was made the mapping the attributes of the system with the attributes of the databases
+ *
+ */
 @Mapper(componentModel = "Spring")
 public interface PokemonMapper {
     @Mappings({

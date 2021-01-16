@@ -8,6 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @Title Pokemon Service
+ * this Class use PokemonRepository and its methods for create one service
+ * Example getAll,getPokemonById.etc.
+ * For indacate what is a service you will use @Service
+ * use @Autowired to make the process automatic
+ */
 @Service
 public class PokemonService {
     @Autowired
@@ -25,8 +32,10 @@ public class PokemonService {
     public Pokemon save(Pokemon pokemon){
         return pokemonRepository.save(pokemon);
     }
+
     public boolean delete(int id){
         return getPokemonById(id).map(pokemon -> {
+            System.out.println("yes");
             pokemonRepository.delete(id);
             return true;
         }).orElse(false);

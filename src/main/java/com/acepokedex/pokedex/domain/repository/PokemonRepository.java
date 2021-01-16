@@ -5,6 +5,12 @@ import com.acepokedex.pokedex.domain.Pokemon;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @Title Repository Pokemon
+ * This interface return a list of Pokemon,
+ * return One pokemon with the name or ID
+ * save and delete pokemons
+ */
 public interface PokemonRepository {
     public List<Pokemon> getAll();
   //  Optional<List<Pokemon>> getById(int idPokemon);
