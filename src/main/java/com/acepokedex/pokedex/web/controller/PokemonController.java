@@ -2,6 +2,10 @@ package com.acepokedex.pokedex.web.controller;
 
 import com.acepokedex.pokedex.domain.Pokemon;
 import com.acepokedex.pokedex.domain.service.PokemonService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -23,22 +27,52 @@ public class PokemonController {
 @Autowired
     private PokemonService pokemonService;
 
-    @RequestMapping("/all")
+    @GetMapping("/all")
+    @ApiOperation("Get all pokemons")
+    @ApiResponse(code = 200,message = "OK")
     public ResponseEntity<List<Pokemon>> getAll(){
         return new ResponseEntity<>(pokemonService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/SearchById/{id}")
-    public ResponseEntity<Pokemon>getPokemonById(@Param("id") int id)
+    @ApiOperation("Search pokemon by ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "NOT FOUND ")
+    })
+    public ResponseEntity<Pokemon>getPokemonById(@ApiParam(value = "The id of the pokemon",required = true,example = "7") @Param("id") int id)
     {
         return  pokemonService.getPokemonById(id)
                 .map(pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/SearchByName/{name}")
+    @ApiOperation("Search pokemon by  pokemon name ")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "NOT FOUND ")
+    })
+    public ResponseEntity<Pokemon>getPokemonByName(@ApiParam(value = "The name of the pokemon",required = true,example = "Machop")@Param("name") String name){
+        return pokemonService.getPokemonByName(name)
+                .map((pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK)))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+/*
+    @RequestMapping("/greeting")
+    public String greeting(Model model){
+        model.addAttribute("pokemon",new Pokemon());
+        return "greeting";
+    }
+    */
 
     @RequestMapping("/listado")
-    public String listado(Model model){
+    @ApiOperation("Return a list of the pokemons")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "NOT FOUND ")
+    })
+    public String listado(@ApiParam(value = "The model of the pokemon",required = false) Model model){
         List<Pokemon> pokemons= pokemonService.getAll();
         model.addAttribute("pokemons", pokemons);
         model.addAttribute("pokemon",new Pokemon());
@@ -48,7 +82,12 @@ public class PokemonController {
     }
 
     @GetMapping("/save")
-    public String save(Pokemon pokemon){
+    @ApiOperation("Search pokemon by ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "NOT FOUND ")
+    })
+    public String save( @ApiParam(value = "The pokemon will save in the bd ") Pokemon pokemon){
         pokemonService.save(pokemon);
         System.out.println(pokemon.getName());
         return "redirect:/pokemon/listado";
