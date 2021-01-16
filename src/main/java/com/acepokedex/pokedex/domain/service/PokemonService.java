@@ -25,8 +25,10 @@ public class PokemonService {
     public Pokemon save(Pokemon pokemon){
         return pokemonRepository.save(pokemon);
     }
+
     public boolean delete(int id){
         return getPokemonById(id).map(pokemon -> {
+            System.out.println("yes");
             pokemonRepository.delete(id);
             return true;
         }).orElse(false);

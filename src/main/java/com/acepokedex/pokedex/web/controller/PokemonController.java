@@ -3,6 +3,7 @@ package com.acepokedex.pokedex.web.controller;
 import com.acepokedex.pokedex.domain.Pokemon;
 import com.acepokedex.pokedex.domain.service.PokemonService;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,24 +36,14 @@ public class PokemonController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/SearchByName/{name}")
-    public ResponseEntity<Pokemon>getPokemonByName(@Param("name") String name){
-        return pokemonService.getPokemonByName(name)
-                .map((pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK)))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-/*
-    @RequestMapping("/greeting")
-    public String greeting(Model model){
-        model.addAttribute("pokemon",new Pokemon());
-        return "greeting";
-    }
-    */
+
     @RequestMapping("/listado")
     public String listado(Model model){
         List<Pokemon> pokemons= pokemonService.getAll();
         model.addAttribute("pokemons", pokemons);
         model.addAttribute("pokemon",new Pokemon());
+        model.addAttribute("poke",new Pokemon());
+
         return "listado";
     }
 
@@ -60,19 +53,26 @@ public class PokemonController {
         System.out.println(pokemon.getName());
         return "redirect:/pokemon/listado";
     }
-
+    @GetMapping("/SearchByName/{name}")
+    public ResponseEntity<Pokemon>getPokemonByName(@Param("name") String name){
+        return pokemonService.getPokemonByName(name)
+                .map((pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK)))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     //Checar response entity del false
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity delete(@PathVariable("id") int id){
-        if(pokemonService.delete(id)){
-            return  new ResponseEntity(HttpStatus.OK);
+    @GetMapping("/delete")
+    public String delete(Pokemon pokemon){
+
+        if(pokemonService.delete(pokemon.getId())){
+            System.out.println("exito");
+            return  "redirect:/pokemon/listado";
         }else{
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            System.out.println("fracaso");
+            return "redirect:/pokemon/listado";
         }
 
     }
-
 
 
 }
