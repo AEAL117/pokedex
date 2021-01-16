@@ -39,18 +39,26 @@ public class PokemonController {
                 .map((pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK)))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+/*
     @RequestMapping("/greeting")
     public String greeting(Model model){
         model.addAttribute("pokemon",new Pokemon());
         return "greeting";
+    }
+    */
+    @RequestMapping("/listado")
+    public String listado(Model model){
+        List<Pokemon> pokemons= pokemonService.getAll();
+        model.addAttribute("pokemons", pokemons);
+        model.addAttribute("pokemon",new Pokemon());
+        return "listado";
     }
 
     @GetMapping("/save")
     public String save(Pokemon pokemon){
         pokemonService.save(pokemon);
         System.out.println(pokemon.getName());
-        return "redirect:/";
+        return "redirect:/pokemon/listado";
     }
 
 
