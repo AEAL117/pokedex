@@ -2,6 +2,7 @@ package com.acepokedex.pokedex.web.controller;
 
 import com.acepokedex.pokedex.domain.Pokemon;
 import com.acepokedex.pokedex.domain.service.PokemonService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,15 @@ public class PokemonController {
     }
 
     @GetMapping("/SearchById/{id}")
-    public ResponseEntity<Pokemon>getPokemonById(@PathVariable("id") int id)
+    public ResponseEntity<Pokemon>getPokemonById(@Param("id") int id)
     {
         return  pokemonService.getPokemonById(id)
                 .map(pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
     @GetMapping("/SearchByName/{name}")
-    public ResponseEntity<Pokemon>getPokemonByName(@PathVariable("name") String name){
+    public ResponseEntity<Pokemon>getPokemonByName(@Param("name") String name){
         return pokemonService.getPokemonByName(name)
                 .map((pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK)))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));

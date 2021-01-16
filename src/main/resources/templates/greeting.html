@@ -2,10 +2,71 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p th:text="'Hello, ' + ${pokemon} + '!'" />
+<p th:text="'Hello, ' + ${pokemon} + '!'"/>
+
+<div class="container">
+    <h2>Search for Pokemon By Name</h2>
+    <form th:object="${pokemon}" th:action="@{/pokemon/SearchByName/{name}}" method="get">
+        <input type="text" name="name" th:field="*{name}"/>
+        <input type="submit" value="Search"/>
+        <div th:if="${not #lists.isEmpty(search)}">
+            <h2>Pokemon List</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Type 1</th>
+                    <th>Type 2</th>
+                    <th>Description</th>
+                    <th>Weight</th>
+                    <th>Height</th>
+                    <th>Mega Evolves</th>
+                    <th>N° Evolves</th>
+                </tr>
+                <tr th:each="pokemon: ${search}">
+                    <td th:text="${pokemon.id}"><a href="/pokemon/${pokemon.id}">Pokemon Id</a></td>
+                    <td th:text="${pokemon.name}">name</td>
+                    <td th:text="${pokemon.Type1}">Type 1</td>
+                    <td th:text="${pokemon.Type2}">Type 2</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <h2>Search for Pokemon By Id</h2>
+    <form th:object="${pokemon}" th:action="@{/pokemon/SearchById/{id}}" method="get">
+        <input type="text" name="id" th:field="*{id}"/>
+        <input type="submit" value="Search"/>
+        <div th:if="${not #lists.isEmpty(search)}">
+            <h2>Pokemon List</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Type 1</th>
+                    <th>Type 2</th>
+                    <th>Description</th>
+                    <th>Weight</th>
+                    <th>Height</th>
+                    <th>Mega Evolves</th>
+                    <th>N° Evolves</th>
+                </tr>
+                <tr th:each="pokemon: ${search}">
+                    <td th:text="${pokemon.id}"><a href="/pokemon/${pokemon.id}">Pokemon Id</a></td>
+                    <td th:text="${pokemon.name}">name</td>
+                    <td th:text="${pokemon.Type1}">Type 1</td>
+                    <td th:text="${pokemon.Type2}">Type 2</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
 
 <form method="get" th:action="@{/pokemon/save}" th:object="${pokemon}">
 
@@ -35,7 +96,6 @@
 
     <label for="evolves">Pokemon evolve:</label><br>
     <input type="number" id="evolves" th:field="*{evolves}">
-
 
 
     <br>
