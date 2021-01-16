@@ -11,6 +11,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @Title Repository of the Pokemon
+ * the function of this class is use the reference of the class PokemonCrudRepository
+ * and implements PokemonRepository
+ */
 @Repository
 public class PokemonRepositoryPersistence implements PokemonRepository {
     @Autowired
