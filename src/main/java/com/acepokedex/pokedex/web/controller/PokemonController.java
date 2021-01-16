@@ -58,13 +58,6 @@ public class PokemonController {
                 .map((pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK)))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-/*
-    @RequestMapping("/greeting")
-    public String greeting(Model model){
-        model.addAttribute("pokemon",new Pokemon());
-        return "greeting";
-    }
-    */
 
     @RequestMapping("/listado")
     @ApiOperation("Return a list of the pokemons")
@@ -91,12 +84,6 @@ public class PokemonController {
         pokemonService.save(pokemon);
         System.out.println(pokemon.getName());
         return "redirect:/pokemon/listado";
-    }
-    @GetMapping("/SearchByName/{name}")
-    public ResponseEntity<Pokemon>getPokemonByName(@Param("name") String name){
-        return pokemonService.getPokemonByName(name)
-                .map((pokemon -> new ResponseEntity<>(pokemon,HttpStatus.OK)))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     //Checar response entity del false
