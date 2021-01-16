@@ -41,7 +41,7 @@ public class PokemonController {
     }
 
 
-    //Checar response entity del false
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable("id") int id){
         if(pokemonService.delete(id)){
