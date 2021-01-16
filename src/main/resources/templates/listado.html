@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Pokemon</title>
+    <title>All Pokemons</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <!--JQUERY-->
@@ -55,7 +55,6 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="pokemon : ${pokemons}">
-                                    <td th:text="${pokemon.id}"></td>
                                     <td th:text="${pokemon.name}"></td>
                                     <td th:text="${pokemon.Type1}"></td>
                                     <td th:text="${pokemon.Type2}"></td>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Pokemon Details</title>
+
+    <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Nuestro css-->
+    <link rel="stylesheet" type="text/css" href="css/reset.css" th:href="@{/css/index.css}">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card-deck">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="https://i.stack.imgur.com/KsHbF.jpg" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text"> Pokemon Name </p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Details
+            </div>
+            <tr class="list-group list-group-flush">
+                <th class="list-group-item" th:text="${pokemons.id}"></th>
+                <th class="list-group-item" th:text="${pokemons.name}"></th>
+                <th class="list-group-item" th:text="${pokemons.type1}"></th>
+                <th class="list-group-item" th:text="${pokemons.type2}"></th>
+                <th class="list-group-item" th:text="${pokemons.description}"></th>
+                <th class="list-group-item" th:text="${pokemons.weight}"></th>
+                <th class="list-group-item" th:text="${pokemons.height}"></th>
+                <th class="list-group-item" th:text="${pokemons.megaEvolves}"></th>
+                <th class="list-group-item" th:text="${pokemons.evolves}"></th>
+            </tr>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

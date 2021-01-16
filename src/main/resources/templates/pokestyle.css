@@ -1,6 +1,7 @@
 body{
     background: url(../img/background.jpg) no-repeat center center fixed;
     background-size: cover;
+    margin-top:10%;
 }
 
 .main-section{
