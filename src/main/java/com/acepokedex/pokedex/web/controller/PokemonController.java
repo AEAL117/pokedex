@@ -5,6 +5,7 @@ import com.acepokedex.pokedex.domain.service.PokemonService;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +31,19 @@ public class PokemonController {
     }
 
     @GetMapping("/SearchById/{id}")
-    public ResponseEntity<Pokemon> getPokemonById(@Param("id") int id) {
+    public ResponseEntity<Pokemon> getPokemonById(@PathVariable("id") int id) {
         return pokemonService.getPokemonById(id)
                 .map(pokemon -> new ResponseEntity<>(pokemon, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/SearchByName/{name}")
-    public ResponseEntity<Pokemon> getPokemonByName(@Param("name") String name) {
+    @GetMapping(value = "/SearchByN/")
+    public ResponseEntity<Pokemon> getPokemonByName(@PathVariable("name") String name) {
         return pokemonService.getPokemonByName(name)
                 .map((pokemon -> new ResponseEntity<>(pokemon, HttpStatus.OK)))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
 /*
     @RequestMapping("/greeting")
     public String greeting(Model model){
@@ -50,25 +52,13 @@ public class PokemonController {
     }
     */
 
-    @RequestMapping("/detailsById/{id}")
-    public String showPokemonById(Model model, @Param("id") int id) {
-        Optional<Pokemon> pokemons = pokemonService.getPokemonById(id);
-        if (pokemons.isPresent()) {
-            model.addAttribute("pokemons", pokemons);
-            return "/busquedaid";
-        }else{
-            new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            return "redirect:/pokemon/listado";
-        }
-    }
-
     @RequestMapping("/detailsByName")
     public String showPokemonByName(Model model, @Param("name") String name) {
         Optional<Pokemon> pokemons = pokemonService.getPokemonByName(name);
         if (pokemons.isPresent()) {
             model.addAttribute("pokemons", pokemons);
             return "/detailsByName";
-        }else{
+        } else {
             new ResponseEntity<>(HttpStatus.NOT_FOUND);
             return "redirect:/pokemon/listado";
         }
@@ -96,6 +86,49 @@ public class PokemonController {
             return new ResponseEntity(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping(value = "/SearchByName/{name}", produces = MediaType.TEXT_HTML_VALUE)
+    @ResponseBody
+    public String showPokemonByName(@PathVariable("name") String name) {
+        Optional<Pokemon> pokemon = pokemonService.getPokemonByName(name);
+        if (pokemon.isPresent()) {
+            return "<html>\n" + "<header><title>Pokemon</title>" +
+                    "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\'>" +
+                    "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>" +
+                    "<link rel='stylesheet' type='text/css' href='css/reset.css' th:href='@{/css/index.css}'>" +
+                    "</header>\n" +
+                        "<body>\n" +
+                            "<div class=`container`>" +
+                                "<div class='card-deck'>" +
+                                    "<div class='card' style='width: 18rem;'>" +
+                                        "<img class='card-img-top' src='https://i.stack.imgur.com/KsHbF.jpg' alt='Card image cap'>" +
+                                            "<div class='card-body alert-primary'>" +
+                                                "<p class='card-text '>" + pokemon.get().getName() + "</p >" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "<div class='card' style = 'width: 18rem;'>" +
+                                "<div class='card-header alert-primary'> Details " +
+                            "</div >" +
+                            "<tr class='list-group list-group-flush'>" +
+                                "<th class='list-group-item'>" + pokemon.get().getId() + "</th>" +
+                                "<th class='list-group-item'>" + pokemon.get().getName() + "</th>" +
+                                "<th class='list-group-item'>" + pokemon.get().getType1() + "</th >" +
+                                "<th class='list-group-item'>" + pokemon.get().getType2() + "</th >" +
+                                "<th class='list-group-item'>" + pokemon.get().getDescription() + "</th >" +
+                                "<th class='list-group-item'>" + pokemon.get().getHeight() + "</th >" +
+                                "<th class='list-group-item'>" + pokemon.get().getWeight() + "</th >" +
+                                "<th class='list-group-item'>" + pokemon.get().isMegaEvolves() + "</th >" +
+                                "<th class='list-group-item'>" + pokemon.get().getEvolves() + "</th >" +
+                            "</tr>" +
+                            "</div >" +
+                        "</div >" +
+                    "</div >"
+                    +"</body>\n" + "</html>";
+        } else {
+            return "Pokemon not found :( ";
         }
 
     }
