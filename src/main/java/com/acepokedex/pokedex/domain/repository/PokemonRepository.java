@@ -17,5 +17,7 @@ public interface PokemonRepository {
     Optional<Pokemon>getPokemonByName(String name);
     Optional<Pokemon>getPokemonById(int id);
     Pokemon save(Pokemon pokemon);
+    Pokemon update(Pokemon pokemon);
     void delete(int idPokemon);
+
 }

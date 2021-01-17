@@ -2,6 +2,7 @@ package com.acepokedex.pokedex.domain.service;
 
 import com.acepokedex.pokedex.domain.Pokemon;
 import com.acepokedex.pokedex.domain.repository.PokemonRepository;
+import com.acepokedex.pokedex.persistence.PokemonRepositoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class PokemonService {
     @Autowired
     private PokemonRepository pokemonRepository;
+    @Autowired
+    private PokemonRepositoryPersistence pokemonRepositoryPersistence;
     public List<Pokemon> getAll(){
         return pokemonRepository.getAll();
     }
@@ -32,6 +35,10 @@ public class PokemonService {
     public Pokemon save(Pokemon pokemon){
         return pokemonRepository.save(pokemon);
     }
+    public Pokemon update(Pokemon pokemon){
+
+        return pokemonRepository.update(pokemon);
+    }
 
     public boolean delete(int id){
         return getPokemonById(id).map(pokemon -> {
@@ -40,6 +47,7 @@ public class PokemonService {
             return true;
         }).orElse(false);
     }
+
 
 
 

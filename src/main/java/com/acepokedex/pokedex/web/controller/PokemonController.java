@@ -97,272 +97,31 @@ public class PokemonController {
 
     }
 
-    @GetMapping(value = "/SearchByName/{name}", produces = MediaType.TEXT_HTML_VALUE)
-    @ResponseBody
-    public String showPokemonByName(@PathVariable("name") String name) {
-        Optional<Pokemon> pokemon = pokemonService.getPokemonByName(name);
-        if (pokemon.isPresent()) {
-            return "<html>\n" + "<header><title>Pokemon</title>" +
-                    "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\'>" +
-                    "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>" +
-                    "<link rel='stylesheet' type='text/css' href='css/reset.css' th:href='@{/css/index.css}'>" +
-                    "</header>\n" +
-                        "<body>\n" +
-                            "<div class=`container`>" +
-                                "<div class='card-deck'>" +
-                                    "<div class='card' style='width: 18rem;'>" +
-                                        "<img class='card-img-top' src='https://img.pokemondb.net/artwork/large/"+pokemon.get().getName().toLowerCase(Locale.ROOT)+".jpg' alt='Card image cap' width=250 height=700>" +
-                                            "<div class='card-body alert-primary'>" +
-                                                "<p class='card-text  '>" + pokemon.get().getName() + "</p >" +
-                                            "</div>" +
-                                        "</div>" +
-                                    "<div class='card' style = 'width: 18rem;'>" +
-                                "<div class='card-header alert-primary'> Details " +
-                            "</div >" +
-                    "<div class='table-responsive'>" +
-                        "<table class='table table-bordered table-hover table-striped'>" +
-                            "<thead class='thread-transparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Name</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().getName() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                            "<thead class='thread-transparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Id</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().getId() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                            "<thead class='ransparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Type 1</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().getType1() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                            "<thead class='thead-ransparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Type 2</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().getType2() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                            "<thead class='ransparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Description</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().getDescription() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                            "<thead class='thead-ransparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Height</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().getHeight() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                            "<thead class='ransparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Weight</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().getWeight() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                            "<thead class='thead-ransparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Mega Evolves</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().isMegaEvolves() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                            "<thead class='ransparent'>" +
-                                "<tr>" +
-                                    "<th scope='col'>Evolves</th>" +
-                                "</tr>" +
-                            "</thead>"+
-                            "<tbody>" +
-                                "<tr>" +
-                                    "<td>" + pokemon.get().getEvolves() + "</td>" +
-                                "</tr>" +
-                            "</tbody>" +
-                        "</table>" +
-                    "</div>"
-                    +"</body>\n" + "</html>";
-        } else {
-            return "<html>\n" + "<header><title>Pokemon</title>" +
-                    "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\'>" +
-                    "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script> </header>" +
-                    "<body>\n" +
-                    "<div class='container mx-auto' style='width: 2000px;'> " +
-                        "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
-                            "<strong> Oops!</strong> The Pokemon you are looking for was not found." +
-                                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-                                    "<span aria-hidden='true'>&times;</span>" +
-                                    "</button>" +
-                        "</div>" +
-                        "<button type='button' class='btn btn-outline-primary' onclick='javascript:history.go(-1);return false;' > Back to list </button>" + "</body>\n" + "</html>" +
-                    "</div>";
-        }
-
+    //inicia la vista detailsbyid con los datos de un pokemon
+    @GetMapping("/detailsbyname")
+    public String pokemonDetails(Model model,Pokemon poke){
+        Optional<Pokemon> pokemon = pokemonService.getPokemonByName(poke.getName());
+        String ruta=pokemon.get().getName().toLowerCase();
+        model.addAttribute("ruta",ruta);
+        model.addAttribute("pokemon",pokemon.get());
+        return "findbyname";
     }
 
-    @GetMapping(value = "/SearchById/{id}", produces = MediaType.TEXT_HTML_VALUE)
-    @ResponseBody
-    public String showPokemonById(@PathVariable("id") int id) {
-        Optional<Pokemon> pokemon = pokemonService.getPokemonById(id);
-        if (pokemon.isPresent()) {
-            return "<html>\n" + "<header><title>Pokemon</title>" +
-                    "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\'>" +
-                    "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>" +
-                    "<link rel='stylesheet' type='text/css' href='css/reset.css' th:href='@{/css/index.css}'>" +
-                    "</header>\n" +
-                        "<body>\n" +
-                            "<div class=`container`>" +
-                                "<div class='card-deck'>" +
-                                    "<div class='card' style='width: 18rem;'>" +
-                                        "<img class='card-img-top' src='https://img.pokemondb.net/artwork/large/"+pokemon.get().getName().toLowerCase(Locale.ROOT)+".jpg' alt='Card image cap' width=250 height=700>" +
-                                            "<div class='card-body alert-primary'>" +
-                                                "<p class='card-text  '>" + pokemon.get().getName() + "</p >" +
-                                            "</div>" +
-                                        "</div>" +
-                                    "<div class='card' style = 'width: 18rem;'>" +
-                                "<div class='card-header alert-primary'> Details " +
-                            "</div >" +
-                        "<div class='table-responsive'>" +
-                            "<table class='table table-bordered table-hover table-striped'>" +
-                                "<thead class='thread-transparent'>" +
-                                    "<tr>" +
-                                        "<th scope='col'>Name</th>" +
-                                    "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().getName() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                "<thead class='thread-transparent'>" +
-                                    "<tr>" +
-                                        "<th scope='col'>Id</th>" +
-                                    "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().getId() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                "<thead class='ransparent'>" +
-                                    "<tr>" +
-                                        "<th scope='col'>Type 1</th>" +
-                                    "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().getType1() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                "<thead class='thead-ransparent'>" +
-                                    "<tr>" +
-                                        "<th scope='col'>Type 2</th>" +
-                                    "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().getType2() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                "<thead class='ransparent'>" +
-                                    "<tr>" +
-                                        "<th scope='col'>Description</th>" +
-                                    "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().getDescription() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                "<thead class='thead-ransparent'>" +
-                                    "<tr>" +
-                                        "<th scope='col'>Height</th>" +
-                                    "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().getHeight() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                    "<thead class='ransparent'>" +
-                                        "<tr>" +
-                                    "<th scope='col'>Weight</th>" +
-                                "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().getWeight() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                "<thead class='thead-ransparent'>" +
-                                    "<tr>" +
-                                        "<th scope='col'>Mega Evolves</th>" +
-                                    "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().isMegaEvolves() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                "<thead class='ransparent'>" +
-                                    "<tr>" +
-                                        "<th scope='col'>Evolves</th>" +
-                                    "</tr>" +
-                                "</thead>"+
-                                "<tbody>" +
-                                    "<tr>" +
-                                        "<td>" + pokemon.get().getEvolves() + "</td>" +
-                                    "</tr>" +
-                                "</tbody>" +
-                                "</table>" +
-                            "</div>"
-                    +   "</body>\n" + "</html>";
-        } else {
-            return "<html>\n" + "<header><title>Pokemon</title>" +
-                    "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\'>" +
-                    "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script> </header>" +
-                    "<body>\n" +
-                    "<div class='container mx-auto' style='width: 2000px;'> " +
-                        "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
-                           "<strong> Oops!</strong> The Pokemon you are looking for was not found." +
-                             "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
-                                "<span aria-hidden='true'>&times;</span>" +
-                             "</button>" +
-                        "</div>" +
-                        "<button type='button' class='btn btn-outline-primary' onclick='javascript:history.go(-1);return false;' > Back to list </button>" + "</body>\n" + "</html>" +
-                    "</div>";
-        }
+
+    //manda los cambios a la BD
+    @GetMapping("/update")
+    public String update(Pokemon pokemon){
+        System.out.println(pokemon.getName());
+        pokemonService.update(pokemon);
+        return "redirect:/pokemon/listado";
+    }
+    //inicia la vista cambios donde hay un formulario para modificar el pokemon
+    @GetMapping("/cambios")
+    public String initCambios(Model model,Pokemon pokemon){
+        System.out.println(pokemon.getName());
+        Optional<Pokemon> poke = pokemonService.getPokemonByName(pokemon.getName());
+
+        model.addAttribute("pokemon",poke.get());
+        return "cambio";
     }
 }

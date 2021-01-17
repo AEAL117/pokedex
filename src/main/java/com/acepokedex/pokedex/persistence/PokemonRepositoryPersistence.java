@@ -6,7 +6,11 @@ import com.acepokedex.pokedex.persistence.crud.PokemonCrudRepository;
 import com.acepokedex.pokedex.persistence.entity.EntityPokemon;
 import com.acepokedex.pokedex.persistence.mapper.PokemonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +55,16 @@ public class PokemonRepositoryPersistence implements PokemonRepository {
     }
 
     @Override
+    public Pokemon update(Pokemon pokemon) {
+        EntityPokemon entityPokemon = pokemonCrudRepository.findPokemonByIdPokemon(pokemon.getId()).get();
+        return pokemonMapper.toPokemon(pokemonCrudRepository.save(entityPokemon));
+    }
+
+    @Override
     public void delete(int idPokemon) {
         pokemonCrudRepository.deleteById(idPokemon);
     }
+
+
 }
+

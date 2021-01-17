@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<header>
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
+
+</header>
+<body>
+<div class="container">
+    <div class="card-deck">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" th:src="'https://img.pokemondb.net/artwork/large/'+${ruta}+'.jpg'" alt="Card image cap" width=250 height=700>
+            <div class="card-body alert-primary">
+                <p class="card-text" th:text="${pokemon.name}"></p >
+                </div> 
+            </div> 
+        <div class="card" style = "width: 18rem;"> 
+            <div class="card-header alert-primary"> Details  
+                </div > 
+            <div class="table-responsive"> 
+                <table class="table table-bordered table-hover table-striped"> 
+                    <thead class="thread-transparent"> 
+                    <tr> 
+                        <th scope="col">Name</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.name}"></td>
+                        </tr> 
+                    </tbody> 
+                    <thead class="thread-transparent"> 
+                    <tr> 
+                        <th scope="col">Id</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.id}"></td>
+                        </tr> 
+                    </tbody> 
+                    <thead class="transparent">
+                    <tr> 
+                        <th scope="col">Type 1</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.Type1}"></td>
+                        </tr> 
+                    </tbody> 
+                    <thead class="thead-transparent">
+                    <tr> 
+                        <th scope="col">Type 2</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.Type2}"></td>
+                        </tr> 
+                    </tbody> 
+                    <thead class="transparent">
+                    <tr> 
+                        <th scope="col" >Description</th>
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.description}"></td>
+                        </tr> 
+                    </tbody> 
+                    <thead class="thead-transparent">
+                    <tr> 
+                        <th scope="col">Height</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.height}"></td>
+                        </tr> 
+                    </tbody> 
+                    <thead class="transparent">
+                    <tr> 
+                        <th scope="col">Weight</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.weight}"></td>
+                        </tr> 
+                    </tbody> 
+                    <thead class="thead-transparent">
+                    <tr> 
+                        <th scope="col">Mega Evolves</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.megaEvolves}"></td>
+                        </tr> 
+                    </tbody> 
+                    <thead class="transparent">
+                    <tr> 
+                        <th scope="col">Evolves</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    <tr> 
+                        <td th:text="${pokemon.evolves}"></td>
+                        </tr> 
+                    </tbody> 
+                    </table> 
+                </div>
+        </div>
+    </div>
+    <form class="form" role="form" autocomplete="off" method="get" th:action="@{/pokemon/cambios}" th:object="${pokemon}">
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-control" type="text"  th:field="*{id}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-control" type="text" id="name" th:field="*{name}">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-control" type="text" th:field="*{type1}">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-control" type="text" th:field="*{type2}">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-control" type="text" th:field="*{description}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-control" type="text" th:field="*{height}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-control" type="text" th:field="*{weight}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-control" type="text" th:field="*{evolves}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-9">
+                <input class="form-check-input" value="second_checkbox" type="checkbox" id="flexCheckDefault" th:field="*{megaEvolves}" >
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-lg-12 text-center">
+                <input type="submit" class="btn btn-primary"
+                       value="Modificar">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
