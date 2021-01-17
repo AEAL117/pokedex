@@ -215,7 +215,19 @@ public class PokemonController {
                     "</div>"
                     +"</body>\n" + "</html>";
         } else {
-            return "Pokemon not found :( ";
+            return "<html>\n" + "<header><title>Pokemon</title>" +
+                    "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\'>" +
+                    "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script> </header>" +
+                    "<body>\n" +
+                    "<div class='container mx-auto' style='width: 2000px;'> " +
+                        "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
+                            "<strong> Oops!</strong> The Pokemon you are looking for was not found." +
+                                "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+                                    "<span aria-hidden='true'>&times;</span>" +
+                                    "</button>" +
+                        "</div>" +
+                        "<button type='button' class='btn btn-outline-primary' onclick='javascript:history.go(-1);return false;' > Back to list </button>" + "</body>\n" + "</html>" +
+                    "</div>";
         }
 
     }
@@ -338,8 +350,19 @@ public class PokemonController {
                             "</div>"
                     +   "</body>\n" + "</html>";
         } else {
-            return "<html>\n" + "<header><title>Pokemon</title>" + "</header>\n" +
-                    "<body>\n" + "<button type='button' class='btn btn-outline-primary' href='window.history.back()'> Back </button>" + "</body>\n" + "</html>";
+            return "<html>\n" + "<header><title>Pokemon</title>" +
+                    "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\'>" +
+                    "<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script> </header>" +
+                    "<body>\n" +
+                    "<div class='container mx-auto' style='width: 2000px;'> " +
+                        "<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
+                           "<strong> Oops!</strong> The Pokemon you are looking for was not found." +
+                             "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+                                "<span aria-hidden='true'>&times;</span>" +
+                             "</button>" +
+                        "</div>" +
+                        "<button type='button' class='btn btn-outline-primary' onclick='javascript:history.go(-1);return false;' > Back to list </button>" + "</body>\n" + "</html>" +
+                    "</div>";
         }
     }
 }
