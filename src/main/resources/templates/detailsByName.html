@@ -27,7 +27,7 @@
             <div class="card-header">
                 Details
             </div>
-            <tr class="list-group list-group-flush">
+            <tr class="list-group list-group-flush" th:object="${pokemons}">
                 <th class="list-group-item" th:text="${pokemons.id}"></th>
                 <th class="list-group-item" th:text="${pokemons.name}"></th>
                 <th class="list-group-item" th:text="${pokemons.type1}"></th>
