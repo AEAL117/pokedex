@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -104,9 +105,9 @@ public class PokemonController {
                             "<div class=`container`>" +
                                 "<div class='card-deck'>" +
                                     "<div class='card' style='width: 18rem;'>" +
-                                        "<img class='card-img-top' src='https://i.stack.imgur.com/KsHbF.jpg' alt='Card image cap'>" +
+                                        "<img class='card-img-top' src='https://img.pokemondb.net/artwork/large/"+pokemon.get().getName().toLowerCase(Locale.ROOT)+".jpg' alt='Card image cap' width=250 height=700>" +
                                             "<div class='card-body alert-primary'>" +
-                                                "<p class='card-text '>" + pokemon.get().getName() + "</p >" +
+                                                "<p class='card-text  '>" + pokemon.get().getName() + "</p >" +
                                             "</div>" +
                                         "</div>" +
                                     "<div class='card' style = 'width: 18rem;'>" +
@@ -114,7 +115,17 @@ public class PokemonController {
                             "</div >" +
                     "<div class='table-responsive'>" +
                         "<table class='table table-bordered table-hover table-striped'>" +
-                            "<thead class='thead-ransparent'>" +
+                            "<thead class='thread-transparent'>" +
+                                "<tr>" +
+                                    "<th scope='col'>Name</th>" +
+                                "</tr>" +
+                            "</thead>"+
+                            "<tbody>" +
+                                "<tr>" +
+                                    "<td>" + pokemon.get().getName() + "</td>" +
+                                "</tr>" +
+                            "</tbody>" +
+                            "<thead class='thread-transparent'>" +
                                 "<tr>" +
                                     "<th scope='col'>Id</th>" +
                                 "</tr>" +
