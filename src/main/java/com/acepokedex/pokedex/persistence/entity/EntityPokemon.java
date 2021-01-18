@@ -1,12 +1,11 @@
 package com.acepokedex.pokedex.persistence.entity;
 
 import javax.persistence.*;
-
 /**
  * @Title Conect with DataBase
  * this part conect tables for the database with our system
  * and have methods for the attributes. If the name of the attributes are different
- * you will use @Column  with the sama name of the table
+ * you will use @Column  with the same name of the table
  */
 @Entity
 @Table(name="pokemons")

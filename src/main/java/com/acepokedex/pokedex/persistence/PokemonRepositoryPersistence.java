@@ -56,7 +56,10 @@ public class PokemonRepositoryPersistence implements PokemonRepository {
 
     @Override
     public Pokemon update(Pokemon pokemon) {
+        System.out.println(pokemon.getName()+" PokemonRepositoryPersistence");
+        System.out.println(pokemon.getId()+" PokemonRepositoryPersistence");
         EntityPokemon entityPokemon = pokemonCrudRepository.findPokemonByIdPokemon(pokemon.getId()).get();
+        System.out.println("Entity: pokemon "+entityPokemon.getName());
         return pokemonMapper.toPokemon(pokemonCrudRepository.save(entityPokemon));
     }
 

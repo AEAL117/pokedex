@@ -22,6 +22,7 @@ public class PokemonService {
     private PokemonRepository pokemonRepository;
     @Autowired
     private PokemonRepositoryPersistence pokemonRepositoryPersistence;
+
     public List<Pokemon> getAll(){
         return pokemonRepository.getAll();
     }
@@ -36,7 +37,8 @@ public class PokemonService {
         return pokemonRepository.save(pokemon);
     }
     public Pokemon update(Pokemon pokemon){
-
+        System.out.println("update de pokemon repository");
+        System.out.println(pokemon.getId());
         return pokemonRepository.update(pokemon);
     }
 

@@ -60,14 +60,6 @@ public class PokemonController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-/*
-    @RequestMapping("/greeting")
-    public String greeting(Model model){
-        model.addAttribute("pokemon",new Pokemon());
-        return "greeting";
-    }
-    */
-
     @RequestMapping("/detailsByName")
 
     @ApiOperation("Get details of the  pokemons searching with the name ")
@@ -86,10 +78,11 @@ public class PokemonController {
         }
     }
 
+    //consulta general
     @RequestMapping("/listado")
     @ApiOperation("Get a list of the all pokemons ")
     @ApiResponses({
-            @ApiResponse(code = 200,message = "Ok"),
+            @ApiResponse(code = 200,message = "Encontrado"),
             @ApiResponse(code = 404,message = "List Not Found")
     })
     public String listado(Model model) {
@@ -102,7 +95,7 @@ public class PokemonController {
     }
 
 
-    @GetMapping("/save")
+    @PostMapping("/save")
     @ApiOperation("Save the  pokemons ")
     @ApiResponses({
             @ApiResponse(code = 200,message = "Ok"),
@@ -110,7 +103,7 @@ public class PokemonController {
     })
     public String save(Pokemon pokemon){
         pokemonService.save(pokemon);
-        System.out.println(pokemon.getName());
+        System.out.println(pokemon.getId());
         return "redirect:/pokemon/listado";
     }
 
@@ -159,7 +152,6 @@ public class PokemonController {
             @ApiResponse(code = 404,message = " Not Found")
     })
     public String update(Pokemon pokemon){
-        System.out.println(pokemon.getName());
         pokemonService.update(pokemon);
         return "redirect:/pokemon/listado";
     }
@@ -172,10 +164,9 @@ public class PokemonController {
             @ApiResponse(code = 200,message = "Ok"),
             @ApiResponse(code = 404,message = " Not Found")
     })
-    public String initCambios(Model model,Pokemon pokemon){
-        System.out.println(pokemon.getName());
-        Optional<Pokemon> poke = pokemonService.getPokemonByName(pokemon.getName());
 
+    public String initCambios(Model model,Pokemon pokemon){
+        Optional<Pokemon> poke = pokemonService.getPokemonByName(pokemon.getName());
         model.addAttribute("pokemon",poke.get());
         return "cambio";
     }
