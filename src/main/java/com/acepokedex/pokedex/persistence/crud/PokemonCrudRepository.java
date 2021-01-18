@@ -18,6 +18,7 @@ import java.util.Optional;
  */
 
 public interface PokemonCrudRepository extends CrudRepository<EntityPokemon,Integer> {
+    //Get Information with database
 Optional<EntityPokemon> findPokemonByIdPokemon(int idPokemon);
 Optional<EntityPokemon> findPokemonByName(String name);
 }
