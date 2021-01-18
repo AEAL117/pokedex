@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!--JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Los iconos tipo Solid de Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <!-- Nuestro css-->
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+<body>
+    <div class="container">
+        
+    </div>
+    <div class="container">
+  <h1>Lo sentimos al parecer el nombre del pokemon ya esta indicado en la BD</h1>
+  <p>Agregelo o indique de otra manera el nombre</p>
+         <form class="form" autocomplete="off" method="get" th:action="@{/pokemon/listado}">
+        <div class="form-group row">
+            <div class="col-lg-12 text-center">
+                <input type="submit" class="btn btn-primary"
+                       value="Volver a Inicio">
+            </div>
+        </div>
+    </form>
+</div>
+    
+</body>
+</html>

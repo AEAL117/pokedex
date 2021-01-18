@@ -102,9 +102,15 @@ public class PokemonController {
             @ApiResponse(code = 404,message = "Pokemon Not Save")
     })
     public String save(Pokemon pokemon){
-        pokemonService.save(pokemon);
-        System.out.println(pokemon.getId());
-        return "redirect:/pokemon/listado";
+        if (pokemonService.getPokemonByName(pokemon.getName()).isPresent() && pokemon.getId()<=0){
+            return "errorduplicatedname";
+        }else{
+            pokemonService.save(pokemon);
+            System.out.println(pokemon.getId());
+            return "redirect:/pokemon/listado";
+
+        }
+
     }
 
     @GetMapping("/delete")
@@ -127,7 +133,7 @@ public class PokemonController {
 
     }
 
-    //inicia la vista detailsbyid con los datos de un pokemon
+    //inicia la vista detailsbyname con los datos de un pokemon
     @GetMapping("/detailsbyname")
 
     @ApiOperation("Show the deteails  of the pokemons with the name of the pokemon")
@@ -136,11 +142,19 @@ public class PokemonController {
             @ApiResponse(code = 404,message = "Details Not Found")
     })
     public String pokemonDetails(Model model,Pokemon poke){
+
+
         Optional<Pokemon> pokemon = pokemonService.getPokemonByName(poke.getName());
-        String ruta=pokemon.get().getName().toLowerCase();
-        model.addAttribute("ruta",ruta);
-        model.addAttribute("pokemon",pokemon.get());
-        return "findbyname";
+
+        if (pokemon.isPresent()){
+            String ruta=pokemon.get().getName().toLowerCase();
+            model.addAttribute("ruta",ruta);
+            model.addAttribute("pokemon",pokemon.get());
+            return "findbyname";
+        }else{
+            return "errnotfound";
+        }
+
     }
 
 
